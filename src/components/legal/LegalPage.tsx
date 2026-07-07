@@ -16,15 +16,6 @@ export default function LegalPage({ kind }: Props) {
         </a>
         <h1 className="legal__title">{TITLES[kind]}</h1>
 
-        <div className="legal__notice">
-          <strong>Hinweis:</strong> Die Angaben von {BRAND} sind vollständig
-          eingetragen. Wir empfehlen, den Text vor dem Launch einmal juristisch
-          prüfen zu lassen. Die Struktur ist auf den tatsächlichen Stack dieser
-          Seite zugeschnitten (statische Seite, Hosting bei Vercel, kein
-          Kontaktformular, keine Cookies, kein Tracking, Schriften lokal
-          gehostet).
-        </div>
-
         {kind === "impressum" && (
           <div className="legal__body">
             <p className="legal__lead">
