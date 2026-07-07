@@ -1,0 +1,274 @@
+.hero-anim {
+  position: relative;
+  width: 100%;
+  perspective: 1200px;
+  perspective-origin: 50% 42%;
+}
+
+/* Bühne: sanftes Schweben der gesamten Szene, hält die 3D-Ebene. */
+.hero-anim__stage {
+  transform-style: preserve-3d;
+  animation: stage-float 9s ease-in-out infinite;
+}
+@keyframes stage-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+.hero-anim__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: clamp(10px, 1.4vw, 16px);
+  transform-style: preserve-3d;
+  /* Cursor-Parallaxe: --hx/--hy werden auf .hero gesetzt und vererbt.
+     Die Glättung liefert der rAF-Lerp in Hero.tsx — keine CSS-Transition,
+     damit die Rotation nicht doppelt gedämpft wird. */
+  transform: rotateY(calc(var(--hx, 0) * 8deg))
+    rotateX(calc(var(--hy, 0) * -8deg));
+}
+
+/* ---------- Einzelne Ad-Karte ---------- */
+.adcard {
+  --c-bg: #efe9dd;
+  --c-block: #cfc6b4;
+  --c-accent: var(--accent);
+  --lift: 0px;
+  --z: 0px;
+  --scale: 1;
+  position: relative;
+  background: var(--card);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 12px;
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  transform: translate3d(0, var(--lift), var(--z)) scale(var(--scale));
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.6s ease, border-color 0.5s ease, opacity 0.6s ease,
+    filter 0.6s ease;
+  /* Nur Einblenden per Animation — transform bleibt für 3D-Übergänge frei. */
+  animation: adcard-in 0.6s ease both;
+}
+
+@keyframes adcard-in {
+  from {
+    opacity: 0;
+  }
+}
+
+/* Farbwelten der Varianten */
+.adcard--tone-0 {
+  --c-bg: #f6ded4;
+  --c-block: #b24a2e;
+}
+.adcard--tone-1 {
+  --c-bg: #dbe7e1;
+  --c-block: #2f5d4f;
+}
+.adcard--tone-2 {
+  --c-bg: #efe6d3;
+  --c-block: #b8882e;
+}
+.adcard--tone-3 {
+  --c-bg: #e4dfe8;
+  --c-block: #6a5a86;
+}
+.adcard--tone-4 {
+  --c-bg: #e3e1dc;
+  --c-block: #3a352d;
+}
+
+.adcard__media {
+  position: relative;
+  aspect-ratio: 16 / 10;
+  border-radius: 8px;
+  background: var(--c-bg);
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+}
+
+.adcard__shape {
+  width: 46%;
+  height: 46%;
+  border-radius: 8px;
+  background: var(--c-block);
+  opacity: 0.9;
+}
+
+.adcard--layout-1 .adcard__shape {
+  border-radius: 50%;
+}
+.adcard--layout-2 .adcard__shape {
+  width: 62%;
+  height: 30%;
+  border-radius: 6px;
+}
+
+.adcard__lines {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.adcard__line {
+  height: 6px;
+  border-radius: 4px;
+  background: var(--c-block);
+  opacity: 0.3;
+  width: 100%;
+}
+
+.adcard__line--head {
+  height: 8px;
+  width: 78%;
+  opacity: 0.6;
+}
+
+.adcard--layout-2 .adcard__line--head {
+  width: 55%;
+}
+
+.adcard__foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-top: 2px;
+}
+
+.adcard__pill {
+  height: 14px;
+  width: 44px;
+  border-radius: 999px;
+  background: var(--c-block);
+  opacity: 0.85;
+}
+
+.adcard__metric {
+  font-family: var(--font-body);
+  font-size: 0.64rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  transition: color 0.4s ease;
+}
+
+/* ---------- Winner-Zustand ---------- */
+.adcard__badge {
+  position: absolute;
+  top: 9px;
+  right: 9px;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  padding: 3px 7px 3px 5px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-family: var(--font-body);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(-4px) scale(0.9);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+  pointer-events: none;
+}
+
+.adcard--winner {
+  --lift: -14px;
+  --z: 62px;
+  --scale: 1.04;
+  border-color: var(--accent);
+  box-shadow: 0 24px 44px rgba(178, 74, 46, 0.3),
+    0 40px 80px rgba(178, 74, 46, 0.16);
+  z-index: 3;
+}
+
+.adcard--winner .adcard__badge {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.adcard--winner .adcard__metric {
+  color: var(--accent-ink);
+}
+
+.adcard--dim {
+  --z: -40px;
+  --scale: 0.97;
+  --lift: 2px;
+  opacity: 0.4;
+  filter: saturate(0.7);
+}
+
+/* ---------- Kreislauf-Beschriftungen ---------- */
+.hero-anim__loop-label {
+  position: absolute;
+  font-family: var(--font-body);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--muted);
+  background: var(--bg);
+  padding: 3px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  white-space: nowrap;
+}
+
+.hero-anim__loop-label--produce {
+  top: -12px;
+  left: 8%;
+}
+.hero-anim__loop-label--test {
+  top: 42%;
+  right: -14px;
+}
+.hero-anim__loop-label--learn {
+  bottom: -12px;
+  left: 30%;
+}
+
+@media (max-width: 560px) {
+  .hero-anim__loop-label--test {
+    right: 4px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-anim {
+    perspective: none;
+  }
+  .hero-anim__stage {
+    animation: none;
+    transform: none;
+  }
+  .hero-anim__grid {
+    transform: none;
+    transition: none;
+  }
+  .adcard {
+    --lift: 0px;
+    --z: 0px;
+    --scale: 1;
+    animation: none;
+    transition: none;
+  }
+  .adcard--winner {
+    --lift: 0px;
+    --z: 0px;
+    --scale: 1;
+  }
+}

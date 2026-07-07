@@ -1,0 +1,288 @@
+:root {
+  /* Palette — warmes Papier + Ink, ein energisches Signal-Akzent.
+     Bewusst kein Corporate-Blau, kein Neon-AI-Grün, kein Dark-Startup. */
+  --bg: #f4f0e8;
+  --bg-alt: #ece7dc;
+  --card: #fffdfa;
+  --ink: #17130d;
+  --ink-soft: #423c33;
+  --muted: #726a5e;
+  --line: rgba(23, 19, 13, 0.12);
+  --line-strong: rgba(23, 19, 13, 0.22);
+
+  --accent: #b24a2e; /* tiefes Terrakotta / gebranntes Siena — warm, aber premium */
+  --accent-ink: #8f3820;
+  --accent-wash: rgba(178, 74, 46, 0.1);
+  --data: #2f5d4f; /* ruhiger Daten-/Wachstums-Ton, sparsam */
+  --data-wash: rgba(47, 93, 79, 0.1);
+
+  /* Mehrschichtige, physisch wirkende Schatten (Ambient + Direktlicht) für Tiefe. */
+  --shadow-sm: 0 1px 2px rgba(23, 19, 13, 0.05), 0 2px 6px rgba(23, 19, 13, 0.05);
+  --shadow-md: 0 2px 6px rgba(23, 19, 13, 0.05), 0 10px 24px rgba(23, 19, 13, 0.08),
+    0 20px 48px rgba(23, 19, 13, 0.07);
+  --shadow-lg: 0 4px 10px rgba(23, 19, 13, 0.06), 0 18px 40px rgba(23, 19, 13, 0.1),
+    0 40px 80px rgba(23, 19, 13, 0.12);
+  /* Getönter Schatten für aufgestellte/gehobene Karten. */
+  --shadow-float: 0 6px 16px rgba(23, 19, 13, 0.08),
+    0 24px 50px rgba(23, 19, 13, 0.14), 0 40px 90px rgba(178, 74, 46, 0.1);
+
+  --tilt-perspective: 1000px;
+
+  /* Bewegungs-Tokens — einheitliche, premium wirkende Easings/Dauern.
+     Der cursor-getriebene Tilt/Parallax wird per rAF-Lerp gedämpft (JS),
+     diese Kurven gelten für Reveal, Hover und Zustandswechsel. */
+  --ease-out-expo: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-out-soft: cubic-bezier(0.33, 1, 0.68, 1);
+  --dur-reveal: 0.85s;
+
+  --radius: 16px;
+  --radius-lg: 24px;
+
+  --font-display: "Fraunces Variable", Georgia, "Times New Roman", serif;
+  --font-body: "Inter Variable", system-ui, -apple-system, "Segoe UI", sans-serif;
+
+  --maxw: 1120px;
+  --pad: clamp(20px, 5vw, 64px);
+
+  --section-y: clamp(72px, 11vw, 148px);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* Sticky-Nav-Höhe: Anker (#system etc.) landen sauber statt unter der Nav. */
+  scroll-padding-top: 88px;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-body);
+  font-size: 17px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+p {
+  margin: 0;
+}
+
+a {
+  color: inherit;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+button {
+  font-family: inherit;
+}
+
+/* ---------- Feine Papier-Körnung (taktile Tiefe, sehr subtil) ---------- */
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 160px 160px;
+}
+
+/* ---------- Ambient-Lichtschein für Sektions-Atmosphäre ---------- */
+.glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+  opacity: 0.55;
+}
+.glow--accent {
+  background: radial-gradient(circle, var(--accent-wash), transparent 70%);
+}
+.glow--data {
+  background: radial-gradient(circle, var(--data-wash), transparent 70%);
+}
+
+/* ---------- Layout helpers ---------- */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--pad);
+}
+
+.section {
+  padding-block: var(--section-y);
+}
+
+.section--alt {
+  background: var(--bg-alt);
+}
+
+.eyebrow {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent-ink);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  margin: 0;
+}
+
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: var(--accent);
+  display: inline-block;
+}
+
+.section-title {
+  font-size: clamp(2rem, 4.4vw, 3.4rem);
+  max-width: 18ch;
+}
+
+.lede {
+  color: var(--ink-soft);
+  font-size: clamp(1.05rem, 1.6vw, 1.28rem);
+  line-height: 1.55;
+  max-width: 62ch;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --btn-bg: var(--accent);
+  --btn-fg: #fff;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5em;
+  padding: 0.95em 1.7em;
+  border-radius: 999px;
+  border: 1px solid transparent;
+  background: var(--btn-bg);
+  color: var(--btn-fg);
+  font-weight: 600;
+  font-size: 1.02rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: var(--shadow-sm);
+}
+
+.btn:hover {
+  background: var(--accent-ink);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.btn--ghost {
+  --btn-bg: transparent;
+  --btn-fg: var(--ink);
+  border-color: var(--line-strong);
+  box-shadow: none;
+}
+
+.btn--ghost:hover {
+  background: transparent;
+  border-color: var(--ink);
+}
+
+.btn--lg {
+  padding: 1.1em 2.1em;
+  font-size: 1.1rem;
+}
+
+/* ---------- Scroll reveal (räumlich, aus der Tiefe) ----------
+   Reveal steuert nur --reveal-y/-z + opacity, NIE direkt transform.
+   So kann der 3D-Tilt (--rx/--ry/--ty) auf denselben Karten koexistieren. */
+.reveal {
+  --reveal-y: 34px;
+  --reveal-z: -60px;
+  opacity: 0;
+  transform: perspective(1200px)
+    translate3d(0, var(--reveal-y), var(--reveal-z));
+  transition: opacity var(--dur-reveal) var(--ease-out-expo),
+    transform var(--dur-reveal) var(--ease-out-expo);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+.reveal.is-visible {
+  --reveal-y: 0px;
+  --reveal-z: 0px;
+  opacity: 1;
+}
+
+/* ---------- 3D-Tilt (cursor-reaktiv) ----------
+   Ein einziger transform, der Reveal-Offsets UND Tilt kombiniert.
+   Muss nach .reveal stehen, damit er auf Karten gewinnt. */
+[data-tilt] {
+  transform: perspective(var(--tilt-perspective))
+    rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg))
+    translate3d(
+      0,
+      calc(var(--reveal-y, 0px) + var(--ty, 0px) + var(--lift, 0px)),
+      var(--reveal-z, 0px)
+    );
+  transform-style: preserve-3d;
+  /* Reveal-Einflug + weiches Zurückgleiten aus dem Tilt in die Ruhe. */
+  transition: transform 0.6s var(--ease-out-expo), box-shadow 0.45s ease;
+  transition-delay: var(--reveal-delay, 0ms);
+  /* will-change wird per JS (useTilt) NUR während der Interaktion gesetzt —
+     so bleiben im Ruhezustand keine dauerhaften Compositor-Layer offen. */
+}
+/* Während des cursor-getriebenen Tilts übernimmt der rAF-Lerp in useTilt.ts
+   die Dämpfung. Deshalb hier KEINE transform-Transition (sonst doppelte
+   Glättung = träges Nachziehen). Nur der Schatten blendet weich mit. */
+[data-tilt].is-tilting {
+  transition: box-shadow 0.45s ease;
+  transition-delay: 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .reveal,
+  [data-tilt] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  body::after {
+    display: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+}
