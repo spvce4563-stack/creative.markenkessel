@@ -18,16 +18,13 @@ export default function LegalPage({ kind }: Props) {
 
         {kind === "impressum" && (
           <div className="legal__body">
-            <p className="legal__lead">
-              Angaben gemäß § 5 DDG (Digitale-Dienste-Gesetz) für {BRAND} —{" "}
-              {DIVISION}.
-            </p>
+            <p className="legal__lead">Angaben gemäß § 5 DDG.</p>
 
             <h2>Diensteanbieter</h2>
             <p>
               Jonas Schweizer
               <br />
-              {BRAND}
+              {BRAND} {DIVISION}
               <br />
               Schwabstraße 47
               <br />
@@ -42,11 +39,11 @@ export default function LegalPage({ kind }: Props) {
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </p>
 
-            <h2>Umsatzsteuer</h2>
-            <p>
-              Kleinunternehmer im Sinne von § 19 UStG. Es wird keine
-              Umsatzsteuer ausgewiesen.
-            </p>
+            {/* TODO: Falls eine Umsatzsteuer-Identifikationsnummer vorhanden
+                ist, hier ergänzen: <h2>Umsatzsteuer</h2> mit dem Satz
+                „Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
+                DE[NUMMER]". Die Steuernummer vom Finanzamt darf hier in
+                keinem Fall veröffentlicht werden. */}
 
             <h2>Inhaltlich verantwortlich gemäß § 18 Abs. 2 MStV</h2>
             <p>
@@ -55,20 +52,11 @@ export default function LegalPage({ kind }: Props) {
               Schwabstraße 47, 70197 Stuttgart
             </p>
 
-            <h2>Streitschlichtung</h2>
+            <h2>Verbraucherstreitbeilegung</h2>
             <p>
-              Die Europäische Kommission stellt eine Plattform zur
-              Online-Streitbeilegung (OS) bereit:{" "}
-              <a
-                href="https://ec.europa.eu/consumers/odr"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                ec.europa.eu/consumers/odr
-              </a>
-              . Wir sind nicht verpflichtet und nicht bereit, an einem
-              Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle
-              teilzunehmen.
+              Wir sind nicht bereit und nicht verpflichtet, an
+              Streitbeilegungsverfahren vor einer
+              Verbraucherschlichtungsstelle teilzunehmen.
             </p>
 
             <h2>Haftung für Inhalte</h2>
@@ -100,6 +88,7 @@ export default function LegalPage({ kind }: Props) {
         )}
 
         {kind === "datenschutz" && (
+          // ENTWURF: Vor Launch juristisch gegenprüfen lassen
           <div className="legal__body">
             <p className="legal__lead">
               Informationen zur Verarbeitung Ihrer personenbezogenen Daten gemäß
@@ -113,7 +102,7 @@ export default function LegalPage({ kind }: Props) {
             <p>
               Jonas Schweizer
               <br />
-              {BRAND}
+              {BRAND} {DIVISION}
               <br />
               Schwabstraße 47
               <br />
@@ -150,7 +139,9 @@ export default function LegalPage({ kind }: Props) {
               ein Auftragsverarbeitungsvertrag (Art. 28 DSGVO). Da eine Verarbeitung
               auch in den USA erfolgen kann, liegt eine Übermittlung in ein
               Drittland vor; Grundlage sind die EU-Standardvertragsklauseln bzw. die
-              Zertifizierung unter dem EU-US Data Privacy Framework. Weitere
+              Zertifizierung unter dem EU-US Data Privacy Framework. Die
+              Server-Logs werden nur für einen begrenzten Zeitraum
+              entsprechend den Vorgaben von Vercel gespeichert. Weitere
               Informationen:{" "}
               <a
                 href="https://vercel.com/legal/privacy-policy"
@@ -162,14 +153,36 @@ export default function LegalPage({ kind }: Props) {
               .
             </p>
 
-            <h2>3. SSL-/TLS-Verschlüsselung</h2>
+            <h2>3. Kontaktaufnahme per E-Mail</h2>
             <p>
-              Diese Seite nutzt aus Sicherheitsgründen eine SSL- bzw.
-              TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am
-              „https://“ in der Adresszeile Ihres Browsers.
+              Wenn Sie per E-Mail Kontakt zu uns aufnehmen, verarbeiten wir
+              Ihre E-Mail-Adresse, den Inhalt Ihrer Nachricht sowie den
+              Zeitpunkt der Übermittlung. Zweck der Verarbeitung ist die
+              Bearbeitung Ihrer Anfrage bzw. die Anbahnung eines Vertrags.
+              Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (vorvertragliche
+              Maßnahmen bzw. Vertragserfüllung), im Übrigen Art. 6 Abs. 1
+              lit. f DSGVO (berechtigtes Interesse an der Beantwortung von
+              Anfragen). Die Daten werden gespeichert, bis Ihre Anfrage
+              abschließend bearbeitet ist; darüber hinaus nur, soweit
+              gesetzliche Aufbewahrungspflichten bestehen.
             </p>
 
-            <h2>4. Schriftarten (lokal)</h2>
+            <h2>4. Keine Analyse- oder Tracking-Dienste</h2>
+            <p>
+              Diese Website verwendet keine Analyse- oder Tracking-Dienste.
+              Über die unter Ziffer 2 und 3 genannten Vorgänge hinaus werden
+              keine personenbezogenen Daten von Ihnen erhoben oder
+              gespeichert.
+            </p>
+
+            <h2>5. Keine Cookies</h2>
+            <p>
+              Diese Website setzt keine Cookies und verwendet keine
+              vergleichbaren Technologien, die eine Einwilligung erfordern.
+              Ein Kontaktformular existiert nicht.
+            </p>
+
+            <h2>6. Schriftarten (lokal)</h2>
             <p>
               Diese Website verwendet zur einheitlichen Darstellung der
               Schriftarten sogenannte Web Fonts. Die Schriften sind lokal auf
@@ -178,24 +191,18 @@ export default function LegalPage({ kind }: Props) {
               statt; es werden keine personenbezogenen Daten an Dritte übermittelt.
             </p>
 
-            <h2>5. Keine Cookies, kein Tracking, kein Kontaktformular</h2>
-            <p>
-              Diese Website setzt keine Cookies, verwendet keine Analyse- oder
-              Tracking-Dienste und enthält kein Kontaktformular. Es werden über die
-              unter Ziffer 2 genannten technisch notwendigen Vorgänge hinaus keine
-              personenbezogenen Daten von Ihnen erhoben oder gespeichert.
-            </p>
-
-            <h2>6. Ihre Rechte</h2>
+            <h2>7. Ihre Rechte</h2>
             <p>
               Sie haben jederzeit das Recht auf Auskunft (Art. 15 DSGVO),
               Berichtigung (Art. 16 DSGVO), Löschung (Art. 17 DSGVO), Einschränkung
-              der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO)
-              sowie Widerspruch (Art. 21 DSGVO). Zur Ausübung genügt eine formlose
-              Mitteilung an die oben genannte verantwortliche Stelle.
+              der Verarbeitung (Art. 18 DSGVO), Datenübertragbarkeit (Art. 20 DSGVO),
+              Widerspruch (Art. 21 DSGVO) sowie das Recht, erteilte
+              Einwilligungen jederzeit mit Wirkung für die Zukunft zu
+              widerrufen (Art. 7 Abs. 3 DSGVO). Zur Ausübung genügt eine
+              formlose Mitteilung an die oben genannte verantwortliche Stelle.
             </p>
 
-            <h2>7. Beschwerderecht bei der Aufsichtsbehörde</h2>
+            <h2>8. Beschwerderecht bei der Aufsichtsbehörde</h2>
             <p>
               Ihnen steht ein Beschwerderecht bei einer
               Datenschutz-Aufsichtsbehörde zu. Zuständig ist die Aufsichtsbehörde
@@ -213,7 +220,14 @@ export default function LegalPage({ kind }: Props) {
               .
             </p>
 
-            <h2>8. Widerspruch gegen Werbe-E-Mails</h2>
+            <h2>9. SSL-/TLS-Verschlüsselung</h2>
+            <p>
+              Diese Seite nutzt aus Sicherheitsgründen eine SSL- bzw.
+              TLS-Verschlüsselung. Eine verschlüsselte Verbindung erkennen Sie am
+              „https://“ in der Adresszeile Ihres Browsers.
+            </p>
+
+            <h2>10. Widerspruch gegen Werbe-E-Mails</h2>
             <p>
               Der Nutzung der im Rahmen der Impressumspflicht veröffentlichten
               Kontaktdaten zur Übersendung von nicht ausdrücklich angeforderter

@@ -37,7 +37,7 @@ export default function System() {
           </h2>
           <p className="lede" data-reveal>
             {withBrand(
-              "Erfolgreiche Werbeanzeigen entstehen nicht durch Geschmack, sondern durch Testen. Große Marken testen dutzende Varianten, bevor sie skalieren — kleine Betriebe konnten sich das bisher nicht leisten. [MARKE] ändert das: Unser System produziert Anzeigen-Varianten in einem Volumen, das manuell unmöglich wäre, und nutzt die echten Ergebnisse aus deinem Werbekonto, um den nächsten Monat gezielter zu machen."
+              "Erfolgreiche Werbeanzeigen entstehen nicht durch Geschmack, sondern durch Testen. Große Marken testen dutzende Varianten, bevor sie skalieren — kleine Betriebe konnten sich das bisher nicht leisten. [MARKE] ändert das: Unser System produziert Anzeigen-Varianten in einem Volumen, das manuelle Produktion in dieser Form nicht erreicht, und nutzt die echten Ergebnisse aus deinem Werbekonto, um den nächsten Monat gezielter zu machen."
             )}
           </p>
         </div>

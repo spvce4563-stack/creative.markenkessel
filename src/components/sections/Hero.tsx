@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import HeroAnimation from "../HeroAnimation";
-import { withBrand } from "../../config";
+import { withBrand, MAILTO_ERSTGESPRAECH } from "../../config";
 import { IconArrowDown } from "../Icons";
 
 export default function Hero() {
@@ -80,12 +80,12 @@ export default function Hero() {
 
           <p className="hero__subline">
             {withBrand(
-              "[MARKE] liefert dir monatlich fertige Static Ads in deinem Corporate Design — und lernt aus deinen echten Kampagnen-Daten, welche Motive für dein Geschäft funktionieren. Du bekommst mehr getestete Anzeigen als jede Agentur liefern könnte, zu einem Bruchteil der Kosten."
+              "[MARKE] liefert dir monatlich fertige Static Ads in deinem Corporate Design — und lernt aus deinen echten Kampagnen-Daten, welche Motive für dein Geschäft funktionieren. Du bekommst ein Vielfaches der Anzeigen-Varianten, die manuelle Produktion schafft — zu einem Bruchteil der Kosten."
             )}
           </p>
 
           <div className="hero__actions">
-            <a className="btn btn--lg" href="#kontakt">
+            <a className="btn btn--lg" href={MAILTO_ERSTGESPRAECH}>
               Kostenloses Erstgespräch
             </a>
             <a className="btn btn--ghost btn--lg" href="#system">

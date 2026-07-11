@@ -1,4 +1,4 @@
-import { BRAND, DIVISION } from "../config";
+import { BRAND, DIVISION, MAILTO_ERSTGESPRAECH } from "../config";
 
 export default function Nav() {
   return (
@@ -15,7 +15,7 @@ export default function Nav() {
           <a href="#preise">Preise</a>
           <a href="#faq">FAQ</a>
         </nav>
-        <a className="btn nav__cta" href="#kontakt">
+        <a className="btn nav__cta" href={MAILTO_ERSTGESPRAECH}>
           Erstgespräch
         </a>
       </div>

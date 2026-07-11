@@ -1,4 +1,5 @@
 import { IconCheck, IconArrowRight } from "../Icons";
+import { MAILTO_ERSTGESPRAECH, MAILTO_INDIVIDUELL } from "../../config";
 
 interface Plan {
   name: string;
@@ -8,6 +9,7 @@ interface Plan {
   features: string[];
   featured?: boolean;
   cta: string;
+  ctaHref: string;
 }
 
 const PLANS: Plan[] = [
@@ -24,6 +26,7 @@ const PLANS: Plan[] = [
       "Monatlich kündbar",
     ],
     cta: "Erstgespräch vereinbaren",
+    ctaHref: MAILTO_ERSTGESPRAECH,
   },
   {
     name: "Wachstum",
@@ -40,6 +43,7 @@ const PLANS: Plan[] = [
     ],
     featured: true,
     cta: "Erstgespräch vereinbaren",
+    ctaHref: MAILTO_ERSTGESPRAECH,
   },
   {
     name: "Performance",
@@ -54,6 +58,7 @@ const PLANS: Plan[] = [
       "Monatlich kündbar",
     ],
     cta: "Erstgespräch vereinbaren",
+    ctaHref: MAILTO_ERSTGESPRAECH,
   },
   {
     name: "Individuell",
@@ -65,6 +70,7 @@ const PLANS: Plan[] = [
       "Sonderformate und Sonderwünsche",
     ],
     cta: "Individuelles Angebot anfragen",
+    ctaHref: MAILTO_INDIVIDUELL,
   },
 ];
 
@@ -77,9 +83,16 @@ export default function Pricing() {
             Klare Pakete. Keine versteckten Kosten.
           </h2>
           <p className="lede" data-reveal>
-            Alle Preise netto, monatlich kündbar. Einmaliges Onboarding: 490 €.
+            Alle Pakete monatlich kündbar. Einmaliges Onboarding: 490 €. Alle
+            Preise — auch das Onboarding — zzgl. gesetzlicher Umsatzsteuer.
             Dein Werbebudget geht direkt an die Plattform und ist nicht Teil
             unserer Pakete.
+          </p>
+          <p className="pricing__note" data-reveal>
+            Alle Angebote richten sich ausschließlich an Unternehmer im Sinne
+            des § 14 BGB sowie an Gewerbetreibende, Freiberufler und
+            juristische Personen (B2B). Ein Verkauf an Verbraucher erfolgt
+            nicht. Alle Preise zzgl. gesetzlicher Umsatzsteuer.
           </p>
         </div>
 
@@ -92,7 +105,7 @@ export default function Pricing() {
               style={{ ["--reveal-delay" as string]: `${i * 80}ms` }}
               key={p.name}
             >
-              {p.featured && <span className="plan__flag">Beliebteste Wahl</span>}
+              {p.featured && <span className="plan__flag">Unsere Empfehlung</span>}
               <h3 className="plan__name">{p.name}</h3>
               <p className="plan__price">
                 {p.price}
@@ -109,7 +122,7 @@ export default function Pricing() {
               </ul>
               <a
                 className={`btn plan__cta${p.featured ? "" : " btn--ghost"}`}
-                href="#kontakt"
+                href={p.ctaHref}
               >
                 {p.cta}
                 <IconArrowRight className="icon-sm" />

@@ -21,7 +21,7 @@ const ROWS: { label: string; agency: string; employee: string; brand: string }[]
   },
   {
     label: "Lernt aus deinen Kampagnen-Daten",
-    agency: "manuell, träge",
+    agency: "manuell, mit Verzögerung",
     employee: "kaum",
     brand: "automatisch, jeden Monat",
   },
@@ -44,7 +44,7 @@ export default function Comparison() {
     <section className="section compare" id="vergleich">
       <div className="container">
         <h2 className="section-title" data-reveal>
-          Rechne es einfach durch.
+          Rechne es einfach durch.*
         </h2>
 
         {/* Desktop: Tabelle */}
@@ -104,6 +104,11 @@ export default function Comparison() {
             </article>
           ))}
         </div>
+
+        <p className="compare__footnote" data-reveal>
+          * Marktübliche Spannen im DACH-Raum, eigene Markterhebung, Stand
+          Juli 2026. Abweichungen im Einzelfall möglich.
+        </p>
       </div>
     </section>
   );

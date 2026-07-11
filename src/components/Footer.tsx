@@ -25,6 +25,10 @@ export default function Footer() {
         <span>
           © {new Date().getFullYear()} {BRAND}. Alle Rechte vorbehalten.
         </span>
+        <span className="footer__b2b">
+          Angebot richtet sich ausschließlich an Unternehmer i. S. d. § 14
+          BGB. Alle Preise zzgl. USt.
+        </span>
       </div>
     </footer>
   );

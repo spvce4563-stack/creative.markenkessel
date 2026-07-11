@@ -555,6 +555,13 @@
   display: none;
 }
 
+/* Quellen-Fußnote zur Vergleichstabelle (UWG-Absicherung). */
+.compare__footnote {
+  margin-top: 18px;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+
 @media (max-width: 780px) {
   .compare__table-wrap {
     display: none;
@@ -617,6 +624,14 @@
   flex-direction: column;
   gap: 16px;
   max-width: 60ch;
+}
+
+/* Rechtlicher B2B-/USt.-Hinweis (PAngV) unter der Preis-Subline. */
+.pricing__note {
+  color: var(--muted);
+  font-size: 0.9rem;
+  line-height: 1.55;
+  max-width: 72ch;
 }
 
 .pricing__grid {
@@ -898,6 +913,28 @@
   transform: rotate(-45deg);
 }
 
+/* Schluss-CTA: mailto-Button + sichtbare E-Mail-Adresse. */
+.final__actions {
+  margin-top: 38px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+.final__mail {
+  margin: 0;
+  color: rgba(244, 239, 230, 0.7);
+  font-size: 0.98rem;
+}
+.final__mail a {
+  color: #f4efe6;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+.final__mail a:hover {
+  color: #fff;
+}
+
 @media (max-width: 620px) {
   .final__points {
     flex-direction: column;
@@ -964,6 +1001,11 @@
   border-top: 1px solid var(--line);
   color: var(--muted);
   font-size: 0.85rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: 18px;
+  row-gap: 4px;
 }
 
 @media (max-width: 620px) {

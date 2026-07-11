@@ -1,4 +1,4 @@
-import { withBrand } from "../../config";
+import { withBrand, CONTACT_EMAIL, MAILTO_ERSTGESPRAECH } from "../../config";
 
 const POINTS = [
   "20 Minuten, telefonisch oder per Video",
@@ -27,6 +27,16 @@ export default function FinalCta() {
             <li key={p}>{p}</li>
           ))}
         </ul>
+
+        <div className="final__actions" data-reveal>
+          <a className="btn btn--lg" href={MAILTO_ERSTGESPRAECH}>
+            Erstgespräch vereinbaren
+          </a>
+          <p className="final__mail">
+            Oder direkt per E-Mail:{" "}
+            <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+          </p>
+        </div>
       </div>
     </section>
   );
