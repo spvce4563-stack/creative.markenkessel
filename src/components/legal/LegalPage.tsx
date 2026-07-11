@@ -39,12 +39,6 @@ export default function LegalPage({ kind }: Props) {
               <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
             </p>
 
-            {/* TODO: Falls eine Umsatzsteuer-Identifikationsnummer vorhanden
-                ist, hier ergänzen: <h2>Umsatzsteuer</h2> mit dem Satz
-                „Umsatzsteuer-Identifikationsnummer gemäß § 27a UStG:
-                DE[NUMMER]". Die Steuernummer vom Finanzamt darf hier in
-                keinem Fall veröffentlicht werden. */}
-
             <h2>Inhaltlich verantwortlich gemäß § 18 Abs. 2 MStV</h2>
             <p>
               Jonas Schweizer
@@ -88,7 +82,6 @@ export default function LegalPage({ kind }: Props) {
         )}
 
         {kind === "datenschutz" && (
-          // ENTWURF: Vor Launch juristisch gegenprüfen lassen
           <div className="legal__body">
             <p className="legal__lead">
               Informationen zur Verarbeitung Ihrer personenbezogenen Daten gemäß
